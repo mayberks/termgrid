@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TermGrid</title>
+  <link rel="stylesheet" href="../../node_modules/xterm/css/xterm.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Registered before xterm.js loads so the handler runs first
+    // in the capture phase and nothing in the terminal can intercept it.
+    document.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey &&
+          e.key && e.key.toLowerCase() === 'g') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (typeof window.__tgNew === 'function') window.__tgNew();
+      }
+    }, true);
+  </script>
+</head>
+<body>
+  <header id="toolbar">
+    <a class="logo" href="#" aria-label="TermGrid">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <rect x="2"  y="2"  width="9" height="9" rx="1.5" fill="none" stroke="#4ec9b0" stroke-width="1.6"/>
+        <rect x="13" y="2"  width="9" height="9" rx="1.5" fill="none" stroke="#007acc" stroke-width="1.6"/>
+        <rect x="2"  y="13" width="9" height="9" rx="1.5" fill="none" stroke="#007acc" stroke-width="1.6"/>
+        <rect x="13" y="13" width="9" height="9" rx="1.5" fill="none" stroke="#4ec9b0" stroke-width="1.6"/>
+      </svg>
+      <span class="logo-text">
+        <span class="t1">Term</span><span class="t2">Grid</span>
+      </span>
+    </a>
+    <span class="spacer"></span>
+  </header>
+
+  <main id="grid">
+    <div id="empty-state" role="status">
+      <div class="empty-box">
+        <div class="empty-sub">Pick a project folder — a terminal opens there.</div>
+        <div class="empty-hint">
+          click the <b>+</b> button at the bottom-right &nbsp;•&nbsp;
+          <kbd>Ctrl</kbd>+<kbd>G</kbd> shortcut
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="new-tab" class="fab" role="button" tabindex="0"
+       title="New terminal (Ctrl+G)"
+       aria-label="New terminal"
+       onclick="window.__tgNew && window.__tgNew()">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="pointer-events:none">
+      <line x1="12" y1="5"  x2="12" y2="19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="5"  y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <script src="../../node_modules/xterm/lib/xterm.js"></script>
+  <script src="../../node_modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+  <script src="grid.js"></script>
+  <script src="terminal.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

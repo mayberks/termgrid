@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/your-username/termgrid/discussions
+    about: Ask questions and share ideas
+  - name: 🔐 Security disclosures
+    url: https://github.com/your-username/termgrid/security/advisories/new
+    about: Report a security vulnerability (please don't open a public issue)
