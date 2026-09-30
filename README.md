@@ -44,6 +44,13 @@ Screenshots are generated from `scripts/build-screenshots.js` to mirror the live
 - **Real terminal** — ConPTY + xterm.js with full ANSI / 256-color support.
 - **Sandboxed renderer** — `contextIsolation: true`, `nodeIntegration: false`, IPC-mediated API only.
 
+```text
+docs/screenshots/
+├── empty.png        # Initial empty state
+├── grid-4.png       # 2×2 grid with 4 terminals
+└── dark-theme.png   # Dark title bar visible
+```
+
 ## Quick Start
 
 ### Run from source
@@ -205,3 +212,13 @@ Report vulnerabilities privately per [SECURITY.md](SECURITY.md). Do not open a p
 ## License
 
 [MIT](LICENSE) © 2026 TermGrid contributors
+
+
+---
+
+## 🙏 Acknowledgments
+
+- [xterm.js](https://xtermjs.org/) — terminal renderer
+- [node-pty](https://github.com/microsoft/node-pty) — PTY bindings
+- [Electron](https://www.electronjs.org/) — desktop runtime
+- PuTTY's panel feature — original inspiration
