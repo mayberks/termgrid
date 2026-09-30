@@ -8,13 +8,13 @@
     "name": "TermGrid Contributors"
   },
   "license": "MIT",
-  "homepage": "https://github.com/your-username/termgrid#readme",
+  "homepage": "https://github.com/mayberks/termgrid#readme",
   "bugs": {
-    "url": "https://github.com/your-username/termgrid/issues"
+    "url": "https://github.com/mayberks/termgrid/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/termgrid.git"
+    "url": "https://github.com/mayberks/termgrid.git"
   },
   "keywords": [
     "terminal",
@@ -31,7 +31,8 @@
   "scripts": {
     "start": "electron .",
     "icons": "node scripts/build-icons.js",
-    "prebuild": "node scripts/build-icons.js",
+    "screenshots": "node scripts/build-screenshots.js",
+    "prebuild": "node scripts/build-icons.js && node scripts/build-screenshots.js",
     "prepack": "node scripts/build-icons.js",
     "pack": "electron-builder --dir",
     "build": "electron-builder"
@@ -52,6 +53,8 @@
       "package.json",
       "LICENSE"
     ],
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
     "win": {
       "target": "portable",
       "icon": "build/icon.ico"

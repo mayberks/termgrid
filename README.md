@@ -1,117 +1,96 @@
 <div align="center">
 
-<img src="build/icon.svg" alt="TermGrid logo" width="96" height="96">
+<img src="build/icon.svg" alt="TermGrid" width="96" height="96">
 
 # TermGrid
 
 **All your project terminals in one window, side by side.**
 
-A grid-style terminal panel for Windows — open as many CMD / PowerShell sessions as you need, see them all at once, no more juggling windows.
+A grid-style terminal panel for Windows. Open as many CMD / PowerShell sessions as you need, see them all at once, no more juggling windows.
 
-[![MIT License](https://img.shields.io/github/license/your-username/termgrid?style=flat-square)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue?style=flat-square)](#-requirements)
+[![MIT License](https://img.shields.io/github/license/mayberks/termgrid?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue?style=flat-square)](#requirements)
 [![Electron](https://img.shields.io/badge/electron-33-9feaf9?style=flat-square)](https://www.electronjs.org)
 [![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?style=flat-square)](https://nodejs.org)
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Usage](#-usage) • [Architecture](#-architecture) • [Contributing](CONTRIBUTING.md)
+[Screenshots](#screenshots) · [Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
 ---
 
-## ❓ Why TermGrid?
+## Why TermGrid
 
-If you work on multiple projects, you probably have a folder full of CMD windows floating around your taskbar. Switching between them is annoying, you lose context, and your screen gets cluttered.
+Working on multiple projects usually means a taskbar full of overlapping CMD windows. Switching between them breaks context and clutters the screen.
 
-**TermGrid** puts every terminal in a single window as a grid. See them all at once. Click `+`, pick a folder, get a new cell. No tabs, no hidden windows, no mess.
+TermGrid puts every terminal into a single window as an auto-arranging grid. One keystroke or click spawns a new cell pointed at any folder you choose.
 
----
+![2×2 grid with four terminals](docs/screenshots/grid-2x2.png)
 
-## ✨ Features
+## Screenshots
 
-| | |
-|---|---|
-| 🟦 **Auto-arranging grid** | 1 → 1×1, 2 → 2×1, **4 → 2×2**, 6 → 3×2, 9 → 3×3, … |
-| ➕ **One-click add** | Floating action button or `Ctrl+G` |
-| 🪟 **Dark title bar** | Native Windows dark chrome with custom overlay |
-| 🎨 **Themed scrollbars** | Dark, minimal, no jarring white bars |
-| ⚡ **Real terminal** | ConPTY + xterm.js — full ANSI / 256-color support |
-| 🪶 **Lightweight** | ~80 MB RAM per window, lazy init, debounced resize |
-| 🧩 **Modular codebase** | Main / preload / renderer cleanly separated |
+| Empty state | 2×2 grid | 3×2 grid |
+|:---:|:---:|:---:|
+| ![Empty state](docs/screenshots/empty.png) | ![2×2 grid](docs/screenshots/grid-2x2.png) | ![3×2 grid](docs/screenshots/grid-3x2.png) |
 
----
+Screenshots are generated from `scripts/build-screenshots.js` to mirror the live app. Run `npm run screenshots` to refresh them.
 
-## 📸 Screenshots
+## Features
 
-> Drop your own screenshots into `docs/screenshots/` and reference them here.
+- **Auto-arranging grid** — 1→1×1, 2→2×1, **4→2×2**, 6→3×2, 9→3×3, 10+ → ⌈√n⌉ columns.
+- **One-click spawn** — floating action button or `Ctrl+G` opens a folder picker and drops a new terminal there.
+- **Native dark chrome** — Windows 10/11 dark title bar with overlaid window controls.
+- **Themed scrollbars** — dark, minimal, no jarring white bars.
+- **Real terminal** — ConPTY + xterm.js with full ANSI / 256-color support.
+- **Sandboxed renderer** — `contextIsolation: true`, `nodeIntegration: false`, IPC-mediated API only.
 
-```
-docs/screenshots/
-├── empty.png        # Initial empty state
-├── grid-4.png       # 2×2 grid with 4 terminals
-└── dark-theme.png   # Dark title bar visible
-```
+## Quick Start
 
-Example markdown image syntax once you add screenshots:
+### Run from source
 
-```markdown
-![Empty state](docs/screenshots/empty.png)
-![2×2 grid](docs/screenshots/grid-4.png)
-```
-
----
-
-## 🚀 Quick Start
-
-### Option A — Run from source
-
-Requirements: **Node.js 18+** and **Windows 10 1809+**.
+Requirements: **Node.js 18+** on **Windows 10 1809+** (or Windows 11).
 
 ```bash
-git clone https://github.com/your-username/termgrid.git
+git clone https://github.com/mayberks/termgrid.git
 cd termgrid
 npm install
 npm start
 ```
 
-`node-pty` ships with prebuilt binaries for Windows — no compiler required.
+`node-pty` ships with prebuilt Windows binaries — no compiler required.
 
-### Option B — Use the portable .exe
+### Use the portable build
 
-1. Go to [Releases](https://github.com/your-username/termgrid/releases)
-2. Download the latest `TermGrid-portable.exe`
-3. Double-click to run — no installation needed
+1. Open the [Releases](https://github.com/mayberks/termgrid/releases) page.
+2. Download the latest `TermGrid-portable.exe`.
+3. Run it — no installer needed.
 
----
-
-## ⌨️ Usage
+## Usage
 
 | Shortcut | Action |
 |---|---|
-| `Ctrl + G` | Open folder picker and spawn new terminal |
+| `Ctrl + G` | Open the folder picker and spawn a new terminal |
 | Click `+` (bottom-right) | Same as above |
-| Click `×` on cell header | Close that terminal |
-| Hover cell header | Reveal close button |
+| Click `×` on a cell header | Close that terminal |
+| Hover a cell header | Reveal the close button |
 
 ### Grid layout rules
 
-The grid auto-resizes based on terminal count:
+The grid resizes automatically as terminals are added or removed:
 
 | Cells | Layout |
 |---:|:---|
-| 1 | 1×1 (full screen) |
-| 2 | 2×1 (side by side) |
-| 3 | 3×1 (in a row) |
+| 1 | 1×1 |
+| 2 | 2×1 |
+| 3 | 3×1 |
 | **4** | **2×2** |
 | 5 – 6 | 3×2 |
 | 7 – 9 | 3×3 |
-| 10+ | `√n` columns, rounded up |
+| 10+ | ⌈√n⌉ columns |
 
 See [`src/renderer/grid.js`](src/renderer/grid.js) for the implementation.
 
----
-
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌──────────────┐  IPC   ┌───────────────┐  PTY   ┌─────────┐
@@ -123,139 +102,106 @@ See [`src/renderer/grid.js`](src/renderer/grid.js) for the implementation.
        └────── preload.js ────────┘
 ```
 
+### Process responsibilities
+
+- **Main process** owns the PTY processes. `PtyManager` keeps a `Map<id, IPty>` and exposes `spawn`, `write`, `resize`, `kill`, `killAll`.
+- **Preload** is the only bridge between main and renderer. It exposes a minimal `window.api` via `contextBridge`.
+- **Renderer** is a plain browser context. `terminal.js` encapsulates one xterm + DOM cell; `main.js` wires IPC events and the grid layout.
+
 ### Project layout
 
 ```
 termgrid/
 ├── src/
-│   ├── main/                # Electron main process
-│   │   ├── index.js         #   app lifecycle, branding
-│   │   ├── window.js        #   BrowserWindow + dark title bar
-│   │   ├── pty-manager.js   #   PtyManager class
-│   │   └── ipc.js           #   IPC handler registry
+│   ├── main/                Electron main process
+│   │   ├── index.js           app lifecycle, branding
+│   │   ├── window.js          BrowserWindow + dark title bar
+│   │   ├── pty-manager.js     PtyManager class
+│   │   └── ipc.js             IPC handler registry
 │   ├── preload/
-│   │   └── preload.js       #   contextBridge — sandboxed API
-│   └── renderer/            # Chromium renderer
+│   │   └── preload.js         contextBridge — sandboxed API
+│   └── renderer/            Chromium renderer
 │       ├── index.html
-│       ├── styles.css       #   theme + layout
-│       ├── grid.js          #   grid size logic
-│       ├── terminal.js      #   Terminal class (xterm + DOM)
-│       └── main.js          #   renderer entry
-├── build/
-│   ├── icon.svg             #   source design
-│   ├── icon.png             #   256×256 raster
-│   └── icon.ico             #   Windows executable icon
+│       ├── styles.css         theme + layout
+│       ├── grid.js            grid sizing logic
+│       ├── terminal.js        Terminal class (xterm + DOM)
+│       └── main.js            renderer entry
+├── build/                  Generated icons + screenshot assets
 ├── scripts/
-│   └── build-icons.js       #   generate icon files
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   └── PULL_REQUEST_TEMPLATE.md
+│   ├── build-icons.js         SVG → PNG → ICO
+│   └── build-screenshots.js   README screenshots
+├── docs/screenshots/       PNGs used in README
+├── .github/                Issue & PR templates
 ├── package.json
-├── LICENSE                  # MIT
+├── LICENSE                  MIT
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── README.md
 └── SECURITY.md
 ```
 
-### Process responsibilities
-
-- **Main process** owns the PTY processes. `PtyManager` keeps a `Map<id, IPty>` and exposes lifecycle hooks (`spawn`, `write`, `resize`, `kill`, `killAll`).
-- **Preload** is the only bridge between main and renderer. It exposes a minimal `window.api` via `contextBridge`. `nodeIntegration: false`.
-- **Renderer** is just a browser. `terminal.js` encapsulates one xterm + DOM cell; `main.js` wires IPC events and the grid layout.
-
----
-
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 
 | | |
 |---|---|
 | Node.js | 18 or newer |
-| OS | Windows 10 1809+ / macOS 12+ / Linux (with X11) |
+| OS | Windows 10 1809+ / Windows 11 |
 | Disk | ~500 MB for `node_modules` |
 
 ### Scripts
 
 ```bash
 npm start          # run in dev mode (electron .)
-npm run icons      # regenerate icon.png and icon.ico from icon.svg design
-npm run pack       # build unpacked app for local testing
-npm run build      # build portable .exe (auto-runs icons first)
+npm run icons      # regenerate icon.png and icon.ico
+npm run screenshots # regenerate README screenshots
+npm run pack       # unpacked build for local testing
+npm run build      # portable .exe (runs icons + screenshots first)
 ```
-
-### Code style
-
-- `'use strict'` everywhere
-- ES modules for renderer (loaded as classic scripts), CommonJS for main
-- JSDoc on every public function in main/
 
 ### Adding a new IPC channel
 
-1. Add handler in `src/main/ipc.js`
-2. Expose on `contextBridge` in `src/preload/preload.js`
-3. Use from renderer
+1. Add a handler in [`src/main/ipc.js`](src/main/ipc.js).
+2. Expose it on `contextBridge` in [`src/preload/preload.js`](src/preload/preload.js).
+3. Call it from the renderer.
 
----
-
-## 📦 Building distributables
+## Building distributables
 
 ```bash
 npm run build
 ```
 
-Output: `dist/TermGrid-portable.exe` (~80 MB, single-file, no install).
+Output: `dist/TermGrid <version>.exe` (~73 MB, single-file, no install).
 
-Configuration lives in `package.json` under the `build` key.
+Configuration lives in the `build` field of [`package.json`](package.json).
 
----
-
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **`npm install` fails with `gyp ERR! find Python`**
 
-`node-pty` ships prebuilt binaries for Windows since 1.0.0, so this shouldn't happen. If it does, install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) or update Node.js to 18+.
+`node-pty` ships prebuilt Windows binaries, so this should not happen. If it does, install Node.js 18+ and clear `node_modules` before retrying.
 
 **The window opens but the folder picker never appears**
 
-Open DevTools with `Ctrl+Shift+I` → Console tab. If you see `Cannot read properties of undefined (reading 'selectFolder')`, your preload script failed to load. Check that `src/preload/preload.js` is in the `build.files` array.
+Open DevTools with `Ctrl+Shift+I` → Console. If you see `Cannot read properties of undefined (reading 'selectFolder')`, the preload script failed to load — verify [`src/preload/preload.js`](src/preload/preload.js) is included in `build.files`.
 
 **Terminals render but colors look wrong**
 
-Make sure your shell is launched with `TERM=xterm-256color`. TermGrid sets this automatically via `PtyManager.spawn`.
+Set `TERM=xterm-256color` in the shell environment. TermGrid sets this automatically via `PtyManager.spawn`.
 
 **Dark title bar not showing**
 
-Requires Windows 10 1903+ or Windows 11. On older versions the title bar falls back to the OS default.
+Requires Windows 10 1903+ or Windows 11. Older versions fall back to the OS default.
 
----
+## Contributing
 
-## 🤝 Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, branch strategy, and the pull request process.
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+## Security
 
-- 🐛 [Report a bug](.github/ISSUE_TEMPLATE/bug_report.md)
-- 💡 [Request a feature](.github/ISSUE_TEMPLATE/feature_request.md)
-- 🔧 [Open a PR](.github/PULL_REQUEST_TEMPLATE.md)
+Report vulnerabilities privately per [SECURITY.md](SECURITY.md). Do not open a public issue.
 
----
-
-## 🔐 Security
-
-Found a security issue? Please follow the disclosure process in [SECURITY.md](SECURITY.md) instead of opening a public issue.
-
----
-
-## 📄 License
+## License
 
 [MIT](LICENSE) © 2026 TermGrid contributors
-
----
-
-## 🙏 Acknowledgments
-
-- [xterm.js](https://xtermjs.org/) — terminal renderer
-- [node-pty](https://github.com/microsoft/node-pty) — PTY bindings
-- [Electron](https://www.electronjs.org/) — desktop runtime
-- PuTTY's panel feature — original inspiration

@@ -1,9 +1,8 @@
 # Changelog
 
-All notable changes to TermGrid will be documented in this file.
+All notable changes to TermGrid are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -16,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark theme with native Windows dark title bar
 - Modular codebase: main / preload / renderer split
 - `PtyManager` class encapsulating PTY lifecycle
-- Build pipeline producing portable `.exe`
+- Build pipeline producing a portable `.exe`
 - Auto-generated icons (SVG → PNG → ICO)
+- Auto-generated README screenshots
 - Themed scrollbars matching the dark palette
 
 ### Security
@@ -25,5 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `nodeIntegration: false`
 - Sandboxed renderer, IPC-mediated API only
 
-[Unreleased]: https://github.com/your-username/termgrid/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/your-username/termgrid/releases/tag/v1.0.0
+[Unreleased]: https://github.com/mayberks/termgrid/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/mayberks/termgrid/releases/tag/v1.0.0

@@ -4,33 +4,27 @@
 
 | Version | Supported |
 |---|:---:|
-| 1.0.x | ✅ |
-| < 1.0 | ❌ |
+| 1.0.x | Yes |
+| < 1.0 | No |
 
 ## Reporting a vulnerability
 
-**Please do not open a public issue for security problems.**
+Do not open a public issue. Use [GitHub's private security advisory form](https://github.com/mayberks/termgrid/security/advisories/new) or email the maintainers directly. You should receive an acknowledgement within 72 hours.
 
-Instead, use [GitHub's private security advisory form](https://github.com/your-username/termgrid/security/advisories/new) or email the maintainers directly.
+## Disclosure process
 
-You should receive an acknowledgement within 72 hours.
-
-## What to expect
-
-1. We will investigate and confirm the issue.
-2. We will work on a fix and coordinate a disclosure timeline with you.
-3. We will credit you in the release notes (unless you prefer to stay anonymous).
+1. We confirm the report and investigate.
+2. We develop a fix and agree on a disclosure timeline with you.
+3. We credit you in the release notes unless you prefer to stay anonymous.
 
 ## Scope
 
-TermGrid spawns PTY processes (cmd.exe / PowerShell) on the local machine. The renderer process is sandboxed (`contextIsolation: true`, `nodeIntegration: false`), so renderer-side bugs cannot directly execute code on the host. The main process is the trust boundary.
+TermGrid spawns PTY processes (`cmd.exe` / PowerShell) on the local machine. The renderer runs sandboxed (`contextIsolation: true`, `nodeIntegration: false`); renderer-side bugs cannot directly execute host code. The main process is the trust boundary.
 
 Security-relevant areas:
 
 - IPC handler validation in `src/main/ipc.js`
-- PTY argument sanitization in `src/main/pty-manager.js`
+- PTY argument handling in `src/main/pty-manager.js`
 - Renderer message handling in `src/renderer/main.js`
 
-Out of scope:
-
-- Vulnerabilities in upstream dependencies (`electron`, `node-pty`, `xterm.js`) — please report to those projects.
+Out of scope: vulnerabilities in upstream dependencies (`electron`, `node-pty`, `xterm.js`) — report those to the respective projects.
