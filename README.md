@@ -43,8 +43,6 @@ If you work on multiple projects, you probably have a folder full of CMD windows
 
 ## 📸 Screenshots
 
-> Drop your own screenshots into `docs/screenshots/` and reference them here.
-
 ```
 docs/screenshots/
 ├── empty.png        # Initial empty state
